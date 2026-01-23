@@ -62,11 +62,11 @@ Material:
     - _FresnelPower: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _VertexFrequency: 1
+    - _VertexFrequency: 0
     m_Colors:
     - _BackColor: {r: 2, g: 0.05643472, b: 0, a: 1}
     - _FresnelColor: {r: 1.3041687, g: 0, b: 4, a: 1}
     - _FrontColor: {r: 0, g: 8.300013, b: 42.722507, a: 1}
-    - _VertexAmount: {r: 10, g: 10, b: 10, a: 0}
+    - _VertexAmount: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

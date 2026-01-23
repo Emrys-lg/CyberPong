@@ -8,6 +8,7 @@ public class PlayerMain : NetworkBehaviour
     public PlayerColor PlayerColor;
     public PlayerHealth PlayerHealth;
     public PlayerUI PlayerUI;
+    public PlayerSwing PlayerSwing;
 
     public override void OnNetworkSpawn()
     {
