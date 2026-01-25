@@ -671,8 +671,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 1000.0,
-            "y": 233.99998474121095
+            "x": 998.0,
+            "y": 247.9999542236328
         },
         "m_Blocks": [
             {
@@ -688,8 +688,8 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": 1000.0,
-            "y": 433.9999694824219
+            "x": 998.0,
+            "y": 448.0
         },
         "m_Blocks": [
             {
@@ -3242,7 +3242,7 @@
     "m_Title": "Fresnel",
     "m_Position": {
         "x": -653.0,
-        "y": 1122.0
+        "y": 1122.0001220703125
     }
 }
 
@@ -3602,7 +3602,7 @@
     "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
     "m_ObjectId": "a0355a4a3c244c828f9d8ee62d96c324",
     "m_Title": "FRESNEL",
-    "m_Content": "Effet de lueur sur les bords\nPulsation dans le temps",
+    "m_Content": "Effet de lueur sur les bords\nPulsations dans le temps",
     "m_TextSize": 1,
     "m_Theme": 0,
     "m_Position": {
@@ -4300,8 +4300,8 @@
     "m_ObjectId": "c87d51a2628a4bc69850695102e2d7de",
     "m_Title": "Colors",
     "m_Position": {
-        "x": -626.0,
-        "y": 75.99996948242188
+        "x": -626.0000610351563,
+        "y": 76.00003051757813
     }
 }
 
@@ -5215,7 +5215,7 @@
     "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
     "m_ObjectId": "f626844da70148aab391fbadafa5b098",
     "m_Title": "Lerp",
-    "m_Content": "On fait transtionner la valeur \"forte\" avec la valeur de base pour donner cette pulsation. ",
+    "m_Content": "On fait transitionner la valeur \"forte\" avec la valeur de base pour donner cette pulsation. ",
     "m_TextSize": 0,
     "m_Theme": 0,
     "m_Position": {
