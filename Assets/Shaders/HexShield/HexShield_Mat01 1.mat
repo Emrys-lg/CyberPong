@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HexShield_Mat01
+  m_Name: HexShield_Mat01 1
   m_Shader: {fileID: -6465566751694194690, guid: e72eccbd5e1c6c944936a8cd3ac9909d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -64,13 +64,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _FresnelPower: 2
+    - _FresnelPulseMultiplier: 4
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _VertexFrequency: 1
+    - _VertexFrequency: 0
     m_Colors:
     - _BackColor: {r: 2, g: 0.05643472, b: 0, a: 1}
     - _FresnelColor: {r: 0.65208435, g: 0, b: 2, a: 1}
     - _FrontColor: {r: 0, g: 1.0375016, b: 5.3403134, a: 1}
-    - _VertexAmount: {r: 0.2, g: 0.2, b: 0.2, a: 0}
+    - _VertexAmount: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
