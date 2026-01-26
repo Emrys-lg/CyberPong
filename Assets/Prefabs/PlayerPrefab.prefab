@@ -102,10 +102,9 @@ GameObject:
   - component: {fileID: 3933893984581441622}
   - component: {fileID: 3790020033148961201}
   - component: {fileID: 5626734247965399552}
-  - component: {fileID: 5327761691282588877}
   m_Layer: 0
   m_Name: Bat
-  m_TagString: Untagged
+  m_TagString: Bat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,19 +202,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5327761691282588877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 560352681580427858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a88741bf4cea024a9092563d1efc52e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BatCollision
-  batForce: 3
 --- !u!1 &1255865276063620406
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +456,7 @@ GameObject:
   - component: {fileID: 6501417704765525150}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -654,7 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3783407666
+  GlobalObjectIdHash: 415994124
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -758,6 +744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLook
   ShowTopMostFoldoutHeaderGroup: 1
+  _lookDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &6832217093264125969
 MonoBehaviour:
   m_ObjectHideFlags: 0
