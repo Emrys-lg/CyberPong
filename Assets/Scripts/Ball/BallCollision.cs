@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class BallCollision : MonoBehaviour
+public class BallCollision : NetworkBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {

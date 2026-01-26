@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerSwing : MonoBehaviour
+public class PlayerSwing : NetworkBehaviour
 {
     [SerializeField]  PlayerMain _playerMain;
     [SerializeField] GameObject _bat;

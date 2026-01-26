@@ -1,6 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class BallMove : MonoBehaviour
+public class BallMove : NetworkBehaviour
 {
     [SerializeField] float _currentMagnitude = 0;
     [SerializeField] float _maxMoveSpeed = 0;

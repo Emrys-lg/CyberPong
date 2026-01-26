@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class BatCollision : MonoBehaviour
+public class BatCollision : NetworkBehaviour
 {
     public float batForce = 10;
     private void OnTriggerEnter(Collider other)
