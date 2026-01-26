@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BDefault : BallState
 {
+    [SerializeField] float decreaseEachFrame = 0.08f;
+    Vector3 newVelocity;
     public override void OnEnter()
     {
         Debug.Log("EnterDefaultState");
@@ -12,8 +14,11 @@ public class BDefault : BallState
     {
     }
 
-    public override void FixedDo()
-    {
+    public override void FixedDo() {
+
+        if (BallMain.Instance.Rb.linearVelocity.x < 0 || BallMain.Instance.Rb.linearVelocity.z < 0) return;
+        newVelocity = BallMain.Instance.Rb.linearVelocity - new Vector3(decreaseEachFrame, 0, decreaseEachFrame);
+        BallMain.Instance.Rb.linearVelocity = newVelocity;
     }
 
     public override void OnExit()

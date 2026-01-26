@@ -13,12 +13,12 @@ public class BallCollision : MonoBehaviour
             return;
         }
 
-        else if (other.CompareTag("Bat"))
+        else if (other.CompareTag("Wall"))
         {
-            BallMain.Instance.BallStateBrain.SwitchBallState(BallMain.Instance.BallStateBrain._ballPoweredState);
+            Vector3 direction = (BallMain.Instance.transform.position - other.transform.position).normalized;
+            BallMain.Instance.BallMove.Bounce(direction);
         }
-        Vector3 direction = (BallMain.Instance.transform.position - other.transform.position).normalized;
-        BallMain.Instance.BallMove.MoveToDirection(direction);
+
     }
     //private void OnTriggerExit(Collider other)
     //{

@@ -2,19 +2,20 @@ using UnityEngine;
 
 public class BatCollision : MonoBehaviour
 {
-    public float batForce;
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Ball"))
-    //    {
-    //        BatSwing();
-    //    }
-    //}
+    public float batForce = 10;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ball"))
+        {
+            BatSwing();
+        }
+    }
 
-    //void BatSwing()
-    //{
-    //    Vector3 direction = (BallMain.Instance.transform.position - transform.position).normalized;
-    //    BallMain.Instance.BallMove.MoveToDirection(direction);
-    //}
+    void BatSwing()
+    {
+        BallMain.Instance.BallStateBrain.SwitchBallState(BallMain.Instance.BallStateBrain._ballPoweredState);
+        Vector3 direction = (BallMain.Instance.transform.position - transform.position).normalized;
+        BallMain.Instance.BallMove.Swinged(direction, batForce);
+    }
 
 }

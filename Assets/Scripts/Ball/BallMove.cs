@@ -2,17 +2,31 @@ using UnityEngine;
 
 public class BallMove : MonoBehaviour
 {
-    [SerializeField] float _moveSpeed;
-    [SerializeField] float _maxMoveSpeed;
+    [SerializeField] float _currentMagnitude = 0;
+    [SerializeField] float _maxMoveSpeed = 0;
 
-    public void MoveToDirection(Vector3 direction)
+    public void MoveToDirection(Vector3 direction, float impulseStrenght)
     {
-        if (BallMain.Instance.Rb.linearVelocity.x >= _maxMoveSpeed || BallMain.Instance.Rb.linearVelocity.y >= _maxMoveSpeed)
-        {
-            return;
-        }
-        BallMain.Instance.Rb.linearVelocity = direction * _moveSpeed;
 
+        BallMain.Instance.Rb.MovePosition(direction * impulseStrenght);
+
+    }
+
+    public void Bounce(Vector3 direction)
+    {
+        BallMain.Instance.Rb.linearVelocity = direction * BallMain.Instance.Rb.linearVelocity.magnitude;
+    }
+
+    public void Swinged(Vector3 direction, float force)
+    {
+        _currentMagnitude = force;
+        _maxMoveSpeed = force;
+        BallMain.Instance.Rb.linearVelocity = direction * _currentMagnitude;
+    }
+
+    private void FixedUpdate()
+    {
+        _currentMagnitude = BallMain.Instance.Rb.linearVelocity.magnitude;
     }
 
     void DecreaseSpeed()
