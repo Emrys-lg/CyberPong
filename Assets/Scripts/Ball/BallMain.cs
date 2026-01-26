@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class BallMain : NetworkBehaviour
 {
+    public BallStateBrain BallStateBrain;
     public BallMove BallMove;
+    public BallCollision BallCollision;
+    public BallColor BallColor;
 
     public Rigidbody Rb;
 
     private static BallMain instance = null;
     public static BallMain Instance => instance;
+
+
+    public bool IsPowered = false;
 
     private void Awake()
     {
