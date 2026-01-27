@@ -27,7 +27,7 @@ public class BallMove : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        _currentMagnitude = BallMain.Instance.Rb.linearVelocity.magnitude;
+        //_currentMagnitude = BallMain.Instance.Rb.linearVelocity.magnitude;
     }
 
     void DecreaseSpeed()

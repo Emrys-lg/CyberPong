@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BDefault
   ShowTopMostFoldoutHeaderGroup: 1
+  decreaseEachFrame: 0.08
 --- !u!1 &3811083333776566360
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BPowered
   ShowTopMostFoldoutHeaderGroup: 1
   _timeUntilSwitch: 5
+  _timeOnEnter: 0
 --- !u!1 &5972496828849133026
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,10 +109,10 @@ GameObject:
   - component: {fileID: 4527112354832268946}
   - component: {fileID: 2819906559127593741}
   - component: {fileID: -4688776426629929833}
-  - component: {fileID: 2722317735674049708}
-  - component: {fileID: 6103237639850525226}
-  - component: {fileID: 9216692419567650681}
-  - component: {fileID: 9140554127338168945}
+  - component: {fileID: 8050766146560115309}
+  - component: {fileID: 7027091835242598443}
+  - component: {fileID: 4369277034886332419}
+  - component: {fileID: 2132207151166110474}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -327,7 +329,7 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
---- !u!114 &2722317735674049708
+--- !u!114 &8050766146560115309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -341,38 +343,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BallMain
   ShowTopMostFoldoutHeaderGroup: 1
   BallStateBrain: {fileID: 3221236249483882776}
-  BallMove: {fileID: 6103237639850525226}
-  BallCollision: {fileID: 9216692419567650681}
-  BallColor: {fileID: 9140554127338168945}
+  BallMove: {fileID: 2132207151166110474}
+  BallCollision: {fileID: 4369277034886332419}
+  BallColor: {fileID: 7027091835242598443}
   Rb: {fileID: -1955625413683718550}
   IsPowered: 0
---- !u!114 &6103237639850525226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5972496828849133026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e88489b81bbcff348ac351aa24e46f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BallMove
-  _moveSpeed: 10
-  _maxMoveSpeed: 10
---- !u!114 &9216692419567650681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5972496828849133026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75dd6d69656c992449b29b3194810429, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BallCollision
---- !u!114 &9140554127338168945
+--- !u!114 &7027091835242598443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -384,7 +360,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762c51211daa7d74ea05ffc45bcdda0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallColor
+  ShowTopMostFoldoutHeaderGroup: 1
   _ballRenderer: {fileID: 6377665917346406493}
+--- !u!114 &4369277034886332419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5972496828849133026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75dd6d69656c992449b29b3194810429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallCollision
+  ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &2132207151166110474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5972496828849133026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88489b81bbcff348ac351aa24e46f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallMove
+  ShowTopMostFoldoutHeaderGroup: 1
+  _currentMagnitude: 0
+  _maxMoveSpeed: 0
 --- !u!1 &8502891044507798719
 GameObject:
   m_ObjectHideFlags: 0

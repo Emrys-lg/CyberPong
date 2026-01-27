@@ -17,8 +17,12 @@ public class BallMain : NetworkBehaviour
 
     public bool IsPowered = false;
 
-    private void Awake()
+    public override void OnNetworkSpawn()
     {
+        if (!IsServer)
+        {
+            Rb.isKinematic = true;
+        }
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);

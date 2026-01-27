@@ -215,7 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a88741bf4cea024a9092563d1efc52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BatCollision
-  batForce: 10
+  ShowTopMostFoldoutHeaderGroup: 1
+  batForce: 50
 --- !u!1 &1255865276063620406
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +515,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -593,7 +594,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
@@ -830,5 +831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db4f64a53230f14ab63afc4b4d6f4c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSwing
+  ShowTopMostFoldoutHeaderGroup: 1
   _playerMain: {fileID: 4903624436435446739}
   _bat: {fileID: 560352681580427858}

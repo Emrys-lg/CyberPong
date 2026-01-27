@@ -8,11 +8,12 @@ public class BatCollision : NetworkBehaviour
     {
         if (other.CompareTag("Ball"))
         {
-            BatSwing();
+            BatSwingServerRpc();
         }
     }
 
-    void BatSwing()
+    [ServerRpc]
+    void BatSwingServerRpc()
     {
         BallMain.Instance.BallStateBrain.SwitchBallState(BallMain.Instance.BallStateBrain._ballPoweredState);
         Vector3 direction = (BallMain.Instance.transform.position - transform.position).normalized;
