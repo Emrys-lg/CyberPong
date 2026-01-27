@@ -8,7 +8,7 @@ public class BPowered : BallState
     {
         Debug.Log("EnterPoweredState");
         _timeOnEnter = Time.time;
-        BallMain.Instance.BallColor.SetBallColor(Color.red);
+        BallMain.Instance.BallColor.SetBallColorClientRpc(Color.red);
         BallMain.Instance.IsPowered = true;
     }
 

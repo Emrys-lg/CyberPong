@@ -5,7 +5,8 @@ public class BallColor : NetworkBehaviour
 {
     [SerializeField] Renderer _ballRenderer;
 
-    public void SetBallColor(Color newColor)
+    [ClientRpc]
+    public void SetBallColorClientRpc(Color newColor)
     {
         _ballRenderer.material.color = newColor;
     }
