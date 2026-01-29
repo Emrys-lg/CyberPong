@@ -2,22 +2,15 @@ using UnityEngine;
 
 public class BDefault : BallState
 {
+    [SerializeField] float _linearDampingDefault = 0.5f;
+    [SerializeField] float _angularDampingDefault = 0.5f;
     public override void OnEnter()
     {
-        Debug.Log("EnterDefaultState");
         BallMain.Instance.BallColor.SetBallColorClientRpc(Color.blue);
+        BallMain.Instance.Rb.linearDamping = _linearDampingDefault;
+        BallMain.Instance.Rb.angularDamping = _angularDampingDefault;
         BallMain.Instance.IsPowered = false;
     }
-    public override void Do()
-    {
-    }
 
-    public override void FixedDo() {
-
-    }
-
-    public override void OnExit()
-    {
-    }
 
 }

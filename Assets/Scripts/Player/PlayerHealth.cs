@@ -16,6 +16,6 @@ public class PlayerHealth : NetworkBehaviour
     public void TakeDamage(int damageAmount)
     {
         currentHealth = currentHealth - damageAmount;
-        PlayerMain.PlayerUI.UpdateHealthUI();
+        PlayerMain.PlayerUI.UpdateHealthUIClientRpc();
     }
 }

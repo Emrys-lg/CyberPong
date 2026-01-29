@@ -14,8 +14,10 @@ public class PlayerMain : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         PlayerColor.SetColorBasedOnOwner();
+        NetworkSession.Instance.AddToPlayerCountUI(this.PlayerUI); //ICI A FIX 
         PlayerHealth.SetupHealth();
-        PlayerUI.UpdateHealthUI();
+        PlayerUI.UpdateHealthUIClientRpc();
+
     }
 
     protected override void OnOwnershipChanged(ulong previous, ulong current)

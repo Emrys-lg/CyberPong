@@ -4,15 +4,21 @@ public class BPowered : BallState
 {
     [SerializeField] float _timeUntilSwitch = 5;
     [SerializeField] float _timeOnEnter;
+
+    [SerializeField] float _linearDampingPowered = 0f;
+    [SerializeField] float _angularDampingPowered = 0f;
     public override void OnEnter()
     {
-        Debug.Log("EnterPoweredState");
+        BallMain.Instance.Rb.linearDamping = _linearDampingPowered;
+        BallMain.Instance.Rb.angularDamping = _angularDampingPowered;
+
+
         _timeOnEnter = Time.time;
         BallMain.Instance.BallColor.SetBallColorClientRpc(Color.red);
         BallMain.Instance.IsPowered = true;
     }
 
-    public override void FixedDo()
+    public override void Do()
     {
         if(Time.time >= _timeOnEnter + _timeUntilSwitch)
         {

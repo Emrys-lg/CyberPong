@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerUI : NetworkBehaviour
 {
     [SerializeField] PlayerMain PlayerMain;
-    [SerializeField] TextMeshProUGUI health;
+    public TextMeshProUGUI health;
 
-    public void UpdateHealthUI()
+    [ClientRpc]
+    public void UpdateHealthUIClientRpc()
     {
         health.text = PlayerMain.PlayerHealth.currentHealth.ToString();
     }
