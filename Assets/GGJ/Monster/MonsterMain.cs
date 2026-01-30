@@ -9,9 +9,9 @@ public class MonsterMain : MonoBehaviour
     public MonsterBrain MonsterTime;
     public MonsterMovement MonsterMovement;
 
+    public enum MaskType {Red, Green, Blue }
 
-
-
+    public MaskType CurrentMask;
 
     private void Awake()
     {
@@ -26,4 +26,7 @@ public class MonsterMain : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
     }
+
+
+
 }

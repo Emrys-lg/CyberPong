@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MonsterMovement : MonoBehaviour
@@ -9,20 +10,33 @@ public class MonsterMovement : MonoBehaviour
 
     [SerializeField] private GameObject _currentPos;
 
-    public void MonsterMove()
+    public void MonsterMoveTowardPlayer()
     {
-        GetNextRandomPos(GetNextPosList());
+        transform.position = GetNextRandomPos(GetNextPosList());
+    }
+
+    public void MonsterFlee()
+    {
+        transform.position = GetRandom3Pos();
     }
 
     private List<GameObject> GetNextPosList()
     {
-        return _pos3List;
+        return _pos3List; //ici a finir
     }
 
-    private GameObject GetNextRandomPos(List<GameObject> posList)
+    private Vector3 GetNextRandomPos(List<GameObject> posList)
     {
         int randomIndex = Random.Range(0, posList.Count);
-        return posList[randomIndex];
+        return posList[randomIndex].transform.position;
     }
+
+    private Vector3 GetRandom3Pos() {
+        int randomIndex = Random.Range(0, _pos3List.Count);
+        return _pos3List[randomIndex].transform.position;
+
+    }
+
+    
 
 }

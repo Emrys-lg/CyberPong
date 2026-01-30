@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class MonsterVisual : MonoBehaviour
 {
-    //recheck enum
-    public Dictionary<string, GameObject> MaskDict = new Dictionary<string, GameObject>();
+    public Dictionary<int, GameObject> MaskDict = new Dictionary<int, GameObject>();
     public Dictionary<int, GameObject> MeshDict = new Dictionary<int, GameObject>();
 }
