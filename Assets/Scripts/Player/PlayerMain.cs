@@ -14,7 +14,9 @@ public class PlayerMain : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         PlayerColor.SetColorBasedOnOwner();
+        Debug.Log("Avant");
         NetworkSession.Instance.AddToPlayerCountUI(this.PlayerUI); //ICI A FIX 
+        Debug.Log("Après");
         PlayerHealth.SetupHealth();
         PlayerUI.UpdateHealthUIClientRpc();
 

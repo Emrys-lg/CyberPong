@@ -32,7 +32,6 @@ public class NetworkSession : NetworkBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
     }
-
     public void AddToPlayerCountUI(PlayerUI playerUI)
     {
         if (!IsServer) return;
