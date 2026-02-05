@@ -7,7 +7,7 @@ public class BallMain : NetworkBehaviour
     public BallStateBrain BallStateBrain;
     public BallMove BallMove;
     public BallCollision BallCollision;
-    public BallColor BallColor;
+    public BallVisual BallColor;
 
     public Rigidbody Rb;
 
@@ -17,7 +17,7 @@ public class BallMain : NetworkBehaviour
 
     public bool IsPowered = false;
 
-    public override void OnNetworkSpawn()
+    public void Start()
     {
         if (!IsServer)
         {
@@ -32,7 +32,6 @@ public class BallMain : NetworkBehaviour
         {
             instance = this;
         }
-        DontDestroyOnLoad(this.gameObject);
     }
 
 

@@ -7,6 +7,7 @@ public class BPowered : BallState
 
     [SerializeField] float _linearDampingPowered = 0f;
     [SerializeField] float _angularDampingPowered = 0f;
+
     public override void OnEnter()
     {
         BallMain.Instance.Rb.linearDamping = _linearDampingPowered;
@@ -14,7 +15,6 @@ public class BPowered : BallState
 
 
         _timeOnEnter = Time.time;
-        BallMain.Instance.BallColor.SetBallColorClientRpc(Color.red);
         BallMain.Instance.IsPowered = true;
     }
 
