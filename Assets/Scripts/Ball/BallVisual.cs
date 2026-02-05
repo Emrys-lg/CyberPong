@@ -1,24 +1,23 @@
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallVisual : NetworkBehaviour
 {
     [SerializeField] Renderer _ballRenderer;
 
-
-    [SerializeField] Gradient _frontGradient;
-    [SerializeField] Gradient _backGradient;
-
     private void Update()
     {
-        SetBallColorClientRpc(_frontGradient.Evaluate(BallMain.Instance.BallMove.AverageCurrentVelocity/ BallMain.Instance.BallMove.MaxMoveSpeed), _backGradient.Evaluate(BallMain.Instance.BallMove.AverageCurrentVelocity / BallMain.Instance.BallMove.MaxMoveSpeed));
+        SetBallColorTransitionClientRpc(BallMain.Instance.BallMove.AverageCurrentVelocity/ BallMain.Instance.BallMove.MaxMoveSpeed);
+        SetBallVertexAmountClientRpc(BallMain.Instance.BallMove.AverageCurrentVelocity, 20);
+        SetBallVertexFrequencyClientRpc(BallMain.Instance.BallMove.AverageCurrentVelocity, 5);
+
     }
 
     [ClientRpc]
-    public void SetBallColorClientRpc(Color frontColor, Color backColor)
+    public void SetBallColorTransitionClientRpc(float value)
     {
-        _ballRenderer.material.SetColor("_FrontColor", frontColor);
-        _ballRenderer.material.SetColor("_BackColor", backColor);
+        _ballRenderer.material.SetFloat("_ColorTransition", value);
     }
     [ClientRpc]
     public void SetBallVertexAmountClientRpc(float amount, float divider)
@@ -33,16 +32,10 @@ public class BallVisual : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void EnableBallFresnelClientRpc(bool setActive)
+    public void SetBallFresnelColorClientRpc(Color color)
     {
-        if (setActive)
-        {
-            _ballRenderer.material.SetFloat("_FresnelPower", 10);
-        }
-        else
-        {
-            _ballRenderer.material.SetFloat("_FresnelPower", 5);
-        }
+        _ballRenderer.material.SetColor("_FresnelColor", color);
+        Debug.Log("Hello");
     }
 
 

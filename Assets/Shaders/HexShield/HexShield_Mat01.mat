@@ -63,15 +63,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelPower: 5
+    - _ColorTransition: 0
+    - _FresnelPower: 7
     - _FresnelPulseMultiplier: 4
     - _QueueControl: 0
     - _QueueOffset: 0
     - _VertexFrequency: 1
     m_Colors:
     - _BackColor: {r: 2, g: 0.05643472, b: 0, a: 1}
+    - _BackColorDefault: {r: 0.25, g: 0.0044403933, b: 0, a: 1}
+    - _BackColorPowered: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 0.65208435, g: 0, b: 2, a: 1}
     - _FrontColor: {r: 0, g: 1.0375016, b: 5.3403134, a: 1}
+    - _FrontColorDefault: {r: 0, g: 0.74871826, b: 1, a: 1}
+    - _FrontColorPowered: {r: 2.981132, g: 0, b: 0, a: 1}
     - _VertexAmount: {r: 0.2, g: 0.2, b: 0.2, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

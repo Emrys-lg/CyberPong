@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3533592811
+  GlobalObjectIdHash: 2011275268
   InScenePlacedSourceGlobalObjectIdHash: 1547883394
   DeferredDespawnTick: 0
   Ownership: 1
@@ -349,7 +349,7 @@ MonoBehaviour:
   BallStateBrain: {fileID: 3221236249483882776}
   BallMove: {fileID: 2132207151166110474}
   BallCollision: {fileID: 4369277034886332419}
-  BallVisual: {fileID: 0}
+  BallVisual: {fileID: 7027091835242598443}
   Rb: {fileID: -1955625413683718550}
   IsPowered: 0
 --- !u!114 &7027091835242598443
@@ -366,66 +366,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BallColor
   ShowTopMostFoldoutHeaderGroup: 1
   _ballRenderer: {fileID: 6377665917346406493}
-  _frontGradient:
-    serializedVersion: 2
-    key0: {r: 0, g: 0.60434246, b: 1, a: 1}
-    key1: {r: 0.754717, g: 0.030168701, b: 0, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  _backGradient:
-    serializedVersion: 2
-    key0: {r: 1, g: 0.155166, b: 0, a: 1}
-    key1: {r: 0, g: 0, b: 0, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
 --- !u!114 &4369277034886332419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,7 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallMove
   ShowTopMostFoldoutHeaderGroup: 1
-  MaxMoveSpeed: 15
+  MaxMoveSpeed: 50
   AverageCurrentVelocity: 0
   _swingForce: 0
 --- !u!1 &7260100375087373693

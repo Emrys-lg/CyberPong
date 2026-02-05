@@ -12,7 +12,7 @@ public class BPowered : BallState
     {
         BallMain.Instance.Rb.linearDamping = _linearDampingPowered;
         BallMain.Instance.Rb.angularDamping = _angularDampingPowered;
-        BallMain.Instance.BallVisual.EnableBallFresnelClientRpc(true);
+        BallMain.Instance.BallVisual.SetBallFresnelColorClientRpc(Color.purple);
 
 
         _timeOnEnter = Time.time;

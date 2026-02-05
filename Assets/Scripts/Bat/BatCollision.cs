@@ -15,11 +15,9 @@ public class BatCollision : NetworkBehaviour
     [ServerRpc]
     void BatSwingServerRpc()
     {
-        Debug.Log("YOOO");
         BallMain.Instance.BallStateBrain.SwitchBallState(BallMain.Instance.BallStateBrain._ballPoweredState);
         Vector3 direction = (BallMain.Instance.transform.position - transform.position).normalized;
         BallMain.Instance.BallMove.Swinged(direction, batForce);
-        Debug.Log("YOO2");
     }
 
 }

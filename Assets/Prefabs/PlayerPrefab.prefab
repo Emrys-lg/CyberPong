@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BatCollision
   ShowTopMostFoldoutHeaderGroup: 1
-  batForce: 30
+  batForce: 50
 --- !u!1 &2936325719520698078
 GameObject:
   m_ObjectHideFlags: 0
