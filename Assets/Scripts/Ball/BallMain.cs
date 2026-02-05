@@ -7,7 +7,7 @@ public class BallMain : NetworkBehaviour
     public BallStateBrain BallStateBrain;
     public BallMove BallMove;
     public BallCollision BallCollision;
-    public BallVisual BallColor;
+    public BallVisual BallVisual;
 
     public Rigidbody Rb;
 

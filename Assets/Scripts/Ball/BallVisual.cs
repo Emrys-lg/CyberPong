@@ -32,5 +32,18 @@ public class BallVisual : NetworkBehaviour
         _ballRenderer.material.SetFloat("_VertexFrequency", frequency/divider);
     }
 
+    [ClientRpc]
+    public void EnableBallFresnelClientRpc(bool setActive)
+    {
+        if (setActive)
+        {
+            _ballRenderer.material.SetFloat("_FresnelPower", 10);
+        }
+        else
+        {
+            _ballRenderer.material.SetFloat("_FresnelPower", 5);
+        }
+    }
+
 
 }

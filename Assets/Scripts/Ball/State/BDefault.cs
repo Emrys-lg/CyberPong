@@ -11,6 +11,8 @@ public class BDefault : BallState
         BallMain.Instance.Rb.linearDamping = _linearDampingDefault;
         BallMain.Instance.Rb.angularDamping = _angularDampingDefault;
         BallMain.Instance.IsPowered = false;
+
+        BallMain.Instance.BallVisual.EnableBallFresnelClientRpc(false);
     }
 
 

@@ -12,6 +12,7 @@ public class BPowered : BallState
     {
         BallMain.Instance.Rb.linearDamping = _linearDampingPowered;
         BallMain.Instance.Rb.angularDamping = _angularDampingPowered;
+        BallMain.Instance.BallVisual.EnableBallFresnelClientRpc(true);
 
 
         _timeOnEnter = Time.time;
