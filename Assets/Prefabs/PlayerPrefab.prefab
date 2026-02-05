@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 415994124
+  GlobalObjectIdHash: 3783407666
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -547,9 +547,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   ShowTopMostFoldoutHeaderGroup: 1
-  PlayerMain: {fileID: 4903624436435446739}
-  maxHealth: 3
-  currentHealth: 0
+  currentHealth:
+    m_InternalValue: 100
+  PlayerMain: {fileID: 0}
 --- !u!114 &4411413723955940891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollision
   ShowTopMostFoldoutHeaderGroup: 1
   PlayerMain: {fileID: 4903624436435446739}
+  damageCooldown: 0.5
 --- !u!114 &3609947866977336666
 MonoBehaviour:
   m_ObjectHideFlags: 0

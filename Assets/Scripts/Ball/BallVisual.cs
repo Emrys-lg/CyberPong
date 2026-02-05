@@ -1,42 +1,52 @@
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class BallVisual : NetworkBehaviour
+public class BallVisuals : NetworkBehaviour
 {
-    [SerializeField] Renderer _ballRenderer;
+    [SerializeField] private Renderer _ballRenderer;
+
+    private NetworkVariable<float> _colorTransition = new NetworkVariable<float>(0f);
+    private NetworkVariable<float> _vertexAmount = new NetworkVariable<float>(0f);
+    private NetworkVariable<float> _vertexFrequency = new NetworkVariable<float>(0f);
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+
+        _colorTransition.OnValueChanged += OnColorTransitionChanged;
+        _vertexAmount.OnValueChanged += OnVertexAmountChanged;
+        _vertexFrequency.OnValueChanged += OnVertexFrequencyChanged;
+    }
 
     private void Update()
     {
-        SetBallColorTransitionClientRpc(BallMain.Instance.BallMove.AverageCurrentVelocity/ BallMain.Instance.BallMove.MaxMoveSpeed);
-        SetBallVertexAmountClientRpc(BallMain.Instance.BallMove.AverageCurrentVelocity, 20);
-        SetBallVertexFrequencyClientRpc(BallMain.Instance.BallMove.AverageCurrentVelocity, 5);
+        if (!IsServer) return;
 
+        float velocityRatio = BallMain.Instance.BallMove.AverageCurrentVelocity / BallMain.Instance.BallMove.MaxMoveSpeed;
+
+        _colorTransition.Value = velocityRatio;
+        _vertexAmount.Value = BallMain.Instance.BallMove.AverageCurrentVelocity / 20f;
+        _vertexFrequency.Value = BallMain.Instance.BallMove.AverageCurrentVelocity / 5f;
     }
 
-    [ClientRpc]
-    public void SetBallColorTransitionClientRpc(float value)
+    private void OnColorTransitionChanged(float oldValue, float newValue)
     {
-        _ballRenderer.material.SetFloat("_ColorTransition", value);
+        _ballRenderer.material.SetFloat("_ColorTransition", newValue);
     }
-    [ClientRpc]
-    public void SetBallVertexAmountClientRpc(float amount, float divider)
+
+    private void OnVertexAmountChanged(float oldValue, float newValue)
     {
-        amount = amount / divider;
-        _ballRenderer.material.SetVector("_VertexAmount", new Vector3(amount, amount, amount));
+        _ballRenderer.material.SetVector("_VertexAmount", new Vector3(newValue, newValue, newValue));
     }
-    [ClientRpc]
-    public void SetBallVertexFrequencyClientRpc(float frequency, float divider)
+
+    private void OnVertexFrequencyChanged(float oldValue, float newValue)
     {
-        _ballRenderer.material.SetFloat("_VertexFrequency", frequency/divider);
+        _ballRenderer.material.SetFloat("_VertexFrequency", newValue);
     }
 
     [ClientRpc]
     public void SetBallFresnelColorClientRpc(Color color)
     {
         _ballRenderer.material.SetColor("_FresnelColor", color);
-        Debug.Log("Hello");
     }
-
-
 }

@@ -3,19 +3,47 @@ using UnityEngine;
 
 public class PlayerHealth : NetworkBehaviour
 {
-    [SerializeField] PlayerMain PlayerMain;
+    public NetworkVariable<int> currentHealth = new NetworkVariable<int>(100);
+    public PlayerMain PlayerMain;
 
-    [SerializeField] int maxHealth;
-    public int currentHealth;
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        currentHealth.OnValueChanged += OnHealthChanged;
+
+        OnHealthChanged(0, currentHealth.Value);
+    }
+
+    private void OnHealthChanged(int oldValue, int newValue)
+    {
+        if (PlayerMain != null && PlayerMain.PlayerUI != null && PlayerMain.PlayerUI.health != null)
+        {
+            PlayerMain.PlayerUI.health.text = newValue.ToString();
+        }
+    }
 
     public void SetupHealth()
     {
-        currentHealth = maxHealth;
+        if (IsServer)
+        {
+            currentHealth.Value = 100;
+        }
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(int damage)
     {
-        currentHealth = currentHealth - damageAmount;
-        PlayerMain.PlayerUI.UpdateHealthUIClientRpc();
+        if (!IsServer) return;
+
+        currentHealth.Value -= damage;
+
+        if (currentHealth.Value < 0)
+        {
+            currentHealth.Value = 0;
+            OnPlayerDeath();
+        }
+    }
+
+    private void OnPlayerDeath()
+    {
     }
 }

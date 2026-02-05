@@ -1,56 +1,88 @@
+using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class NetworkSession : NetworkBehaviour
 {
-    private static NetworkSession instance = null;
-    public static NetworkSession Instance => instance;
+    public static NetworkSession Instance { get; private set; }
 
-    [SerializeField] int _maxPlayerCount = 2;
-    [SerializeField] int _currentPlayerCount;
+    private int _currentPlayerCount = 0;
+    private List<PlayerUI> _playerUIs = new List<PlayerUI>();
 
-    [SerializeField] Canvas _tempCanvas;
-    [SerializeField] Canvas _gameCanvas;
+    [Header("UI Health Texts")]
+    public TextMeshProUGUI _player01UIHealth;
+    public TextMeshProUGUI _player02UIHealth;
 
-    [SerializeField] TextMeshProUGUI _player01UIHealth;
-    [SerializeField] TextMeshProUGUI _player02UIHealth;
-
-
-    public void Start()
+    void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance == null)
         {
-            Destroy(this.gameObject);
-            return;
+            Instance = this;
         }
         else
         {
-            instance = this;
+            Destroy(gameObject);
         }
-        DontDestroyOnLoad(this.gameObject);
     }
-    public void AddToPlayerCountUI(PlayerUI playerUI)
+
+    public void RegisterPlayer(PlayerUI playerUI)
     {
         if (!IsServer) return;
-        _currentPlayerCount++;
-        playerUI.health = _player01UIHealth;
-        if (_currentPlayerCount == 2) playerUI.health = _player02UIHealth;
 
-        //ClientRpcParams clientRpcParams = new ClientRpcParams();
-        //SendMessage = new ClientRpcSendParams
-        //{
-        //    TargetClientIds = new ulong[] {playerClientId}
-        //}
-        //SwitchUIClientRPC(clientParams);
+        _currentPlayerCount++;
+        _playerUIs.Add(playerUI);
+        AssignPlayerUIClientRpc(playerUI.NetworkObjectId, _currentPlayerCount);
+
+        Debug.Log($"Player {_currentPlayerCount} registered");
     }
 
     [ClientRpc]
-    void SwitchUIClientRPC(ClientRpcParams clientParams)
+    private void AssignPlayerUIClientRpc(ulong playerNetworkObjectId, int playerNumber)
     {
-        _tempCanvas.gameObject.SetActive(false);
-        _gameCanvas.gameObject.SetActive(true);
+        // Trouver le NetworkObject du joueur
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(playerNetworkObjectId, out NetworkObject networkObject))
+        {
+            PlayerUI playerUI = networkObject.GetComponent<PlayerUI>();
+
+            if (playerUI != null)
+            {
+                if (playerNumber == 1)
+                {
+                    playerUI.health = _player01UIHealth;
+                    Debug.Log($"Player 1 UI assigned to {_player01UIHealth.name}");
+                }
+                else if (playerNumber == 2)
+                {
+                    playerUI.health = _player02UIHealth;
+                    Debug.Log($"Player 2 UI assigned to {_player02UIHealth.name}");
+                }
+
+                PlayerMain playerMain = networkObject.GetComponent<PlayerMain>();
+                if (playerMain != null && playerMain.PlayerHealth != null)
+                {
+                    int currentHP = playerMain.PlayerHealth.currentHealth.Value;
+                    playerUI.health.text = currentHP.ToString();
+                }
+            }
+            else
+            {
+                Debug.LogError($"PlayerUI component not found on NetworkObject {playerNetworkObjectId}");
+            }
+        }
+        else
+        {
+            Debug.LogError($"NetworkObject with ID {playerNetworkObjectId} not found in SpawnedObjects");
+        }
+    }
+
+    public void UnregisterPlayer(PlayerUI playerUI)
+    {
+        if (!IsServer) return;
+
+        _playerUIs.Remove(playerUI);
+        _currentPlayerCount--;
+
+        Debug.Log($"Player unregistered. Current count: {_currentPlayerCount}");
     }
 }

@@ -1,7 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
 
-
 public class PlayerMain : NetworkBehaviour
 {
     public PlayerMovement PlayerMove;
@@ -13,11 +12,25 @@ public class PlayerMain : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        PlayerColor.SetColorBasedOnOwner();
-        NetworkSession.Instance.AddToPlayerCountUI(PlayerUI); //ICI A FIX 
-        PlayerHealth.SetupHealth();
-        PlayerUI.UpdateHealthUIClientRpc();
 
+        PlayerColor.SetColorBasedOnOwner();
+
+        if (IsServer && NetworkSession.Instance != null)
+        {
+            NetworkSession.Instance.RegisterPlayer(PlayerUI);
+        }
+
+        PlayerHealth.SetupHealth();
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+
+        if (IsServer && NetworkSession.Instance != null)
+        {
+            NetworkSession.Instance.UnregisterPlayer(PlayerUI);
+        }
     }
 
     protected override void OnOwnershipChanged(ulong previous, ulong current)

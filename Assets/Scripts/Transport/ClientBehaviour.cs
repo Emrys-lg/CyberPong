@@ -1,24 +1,31 @@
 using UnityEngine;
 using Unity.Networking.Transport;
-using Unity.VisualScripting;
+using Unity.Collections;
 
 public class ClientBehaviour : MonoBehaviour
 {
     NetworkDriver m_Driver;
     NetworkConnection m_Connection;
+    bool m_IsConnected = false;
+
+    [Header("UI Ref")]
+    public ChatUI chatUI;
 
     void Start()
     {
         m_Driver = NetworkDriver.Create();
-
         var endpoint = NetworkEndpoint.LoopbackIpv4.WithPort(7778);
         m_Connection = m_Driver.Connect(endpoint);
-    }
 
+        Debug.Log("Attempting to connect to server...");
+    }
 
     void OnDestroy()
     {
-        m_Driver.Dispose();
+        if (m_Driver.IsCreated)
+        {
+            m_Driver.Dispose();
+        }
     }
 
     void Update()
@@ -26,66 +33,54 @@ public class ClientBehaviour : MonoBehaviour
         m_Driver.ScheduleUpdate().Complete();
 
         if (!m_Connection.IsCreated)
-        {
             return;
-        }
-        SendMessageToServer("Hello");
-        //Unity.Collections.DataStreamReader stream;
-        //NetworkEvent.Type cmd;
-        //while ((cmd = m_Connection.PopEvent(m_Driver, out stream)) != NetworkEvent.Type.Empty)
-        //{
-        //    //if (cmd == NetworkEvent.Type.Connect)
-        //    //{
-        //    //    Debug.Log("We are now connected to the server.");
-        //    //    SendMessageToServer("Hello");
 
-        //    //    uint value = 1;
-        //    //    m_Driver.BeginSend(m_Connection, out var writer);
-        //    //    writer.WriteUInt(value);
-        //    //    m_Driver.EndSend(writer);
-        //    //}
-        //    //else if (cmd == NetworkEvent.Type.Data)
-        //    //{
-        //    //    uint value = stream.ReadUInt();
-        //    //    Debug.Log($"Got the value {value} back from the server.");
-
-        //    //    m_Connection.Disconnect(m_Driver);
-        //    //    m_Connection = default;
-        //    //}
-        //    ////else if (cmd == NetworkEvent.Type.Disconnect)
-        //    ////{
-        //    ////    Debug.Log("Client got disconnected from server.");
-        //    ////    m_Connection = default;
-        //    ////}
-        //}
-    }
-
-    public void SendMessageToServer(string message)
-    {
-        Unity.Collections.DataStreamReader stream;
+        DataStreamReader stream;
         NetworkEvent.Type cmd;
 
         while ((cmd = m_Connection.PopEvent(m_Driver, out stream)) != NetworkEvent.Type.Empty)
         {
             if (cmd == NetworkEvent.Type.Connect)
             {
-                m_Driver.BeginSend(m_Connection, out var writer);
-                writer.WriteUIntNetworkByteOrder(uint.Parse(message));
-                m_Driver.EndSend(writer);
+                Debug.Log("Connected to server!");
+                m_IsConnected = true;
+
+ 
+                if (chatUI != null)
+                    chatUI.AddMessage("=== Connected to server ===");
             }
             else if (cmd == NetworkEvent.Type.Data)
             {
-                uint value = stream.ReadUInt();
-                Debug.Log($"Got the value {value} back from the server.");
+                var message = stream.ReadFixedString128();
+                Debug.Log($"Received: {message}");
 
-                m_Connection.Disconnect(m_Driver);
-                m_Connection = default;
+                if (chatUI != null)
+                    chatUI.AddMessage(message.ToString());
             }
             else if (cmd == NetworkEvent.Type.Disconnect)
             {
-                Debug.Log("Client got disconnected from server.");
+                Debug.Log("Disconnected from server");
                 m_Connection = default;
+                m_IsConnected = false;
+
+                if (chatUI != null)
+                    chatUI.AddMessage("=== Disconnected from server ===");
             }
         }
+    }
+
+    public void SendChatMessage(string message)
+    {
+        if (!m_IsConnected || !m_Connection.IsCreated)
+        {
+            Debug.LogWarning("Not connected to server!");
+            if (chatUI != null)
+                chatUI.AddMessage("[ERROR] Not connected to server!");
+            return;
+        }
+
+        m_Driver.BeginSend(m_Connection, out var writer);
+        writer.WriteFixedString128(message);
+        m_Driver.EndSend(writer);
     }
 }
