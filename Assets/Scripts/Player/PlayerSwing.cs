@@ -7,16 +7,40 @@ public class PlayerSwing : NetworkBehaviour
     [SerializeField]  PlayerMain _playerMain;
     [SerializeField] GameObject _bat;
 
+    private NetworkVariable<bool> _batActivated = new NetworkVariable<bool>(false);
+
     private void Update()
     {
-        if (Mouse.current.leftButton.isPressed)
+        if (!IsOwner) return;
+
+        bool shouldActivate = Mouse.current.leftButton.isPressed;
+
+        _bat.SetActive(shouldActivate);
+
+        if (shouldActivate != _batActivated.Value)
         {
-            _bat.SetActive(true);
+            SetBatStateServerRpc(shouldActivate);
         }
-        else
+    }
+
+    [ServerRpc]
+    private void SetBatStateServerRpc(bool activated)
+    {
+        _batActivated.Value = activated;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner)
         {
-            _bat.SetActive(false);
+            _batActivated.OnValueChanged += OnBatStateChanged;
+            _bat.SetActive(_batActivated.Value);
         }
+    }
+
+    private void OnBatStateChanged(bool oldValue, bool newValue)
+    {
+        _bat.SetActive(newValue);
     }
 
 
