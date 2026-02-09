@@ -7,7 +7,7 @@ public class PlayerSwing : NetworkBehaviour
     [SerializeField]  PlayerMain _playerMain;
     [SerializeField] GameObject _bat;
 
-    private NetworkVariable<bool> _batActivated = new NetworkVariable<bool>(false);
+    private NetworkVariable<bool> _batActivated = new NetworkVariable<bool>(true);
 
     private void Update()
     {
