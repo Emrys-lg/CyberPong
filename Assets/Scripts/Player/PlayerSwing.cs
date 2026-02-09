@@ -4,19 +4,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerSwing : NetworkBehaviour
 {
-    [SerializeField]  PlayerMain _playerMain;
+    [SerializeField] PlayerMain _playerMain;
     [SerializeField] GameObject _bat;
+    bool shouldActivate = false;
 
     private NetworkVariable<bool> _batActivated = new NetworkVariable<bool>(true);
 
     private void Update()
     {
-        if (!IsOwner) return;
-
-        bool shouldActivate = Mouse.current.leftButton.isPressed;
-
-        _bat.SetActive(shouldActivate);
-
+        if (!IsOwner || !IsSpawned) return;
         if (shouldActivate != _batActivated.Value)
         {
             SetBatStateServerRpc(shouldActivate);
@@ -41,5 +37,14 @@ public class PlayerSwing : NetworkBehaviour
     private void OnBatStateChanged(bool oldValue, bool newValue)
     {
         _bat.SetActive(newValue);
+    }
+
+
+    public void OnSwing(InputAction.CallbackContext context)
+    {
+        if (!IsOwner || !IsSpawned) return;
+        shouldActivate = System.Convert.ToBoolean(context.ReadValue<float>());
+        _bat.SetActive(shouldActivate);
+        SetBatStateServerRpc(shouldActivate);
     }
 }
