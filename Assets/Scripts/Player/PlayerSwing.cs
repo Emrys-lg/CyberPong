@@ -42,7 +42,4 @@ public class PlayerSwing : NetworkBehaviour
     {
         _bat.SetActive(newValue);
     }
-
-
-
 }
