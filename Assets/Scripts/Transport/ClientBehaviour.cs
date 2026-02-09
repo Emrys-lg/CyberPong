@@ -14,7 +14,7 @@ public class ClientBehaviour : MonoBehaviour
     void Start()
     {
         m_Driver = NetworkDriver.Create();
-        var endpoint = NetworkEndpoint.LoopbackIpv4.WithPort(7777);
+        var endpoint = NetworkEndpoint.LoopbackIpv4.WithPort(7779);
         m_Connection = m_Driver.Connect(endpoint);
 
         Debug.Log("Attempting to connect to server...");

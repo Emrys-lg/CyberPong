@@ -12,15 +12,15 @@ public class ServerBehaviour : MonoBehaviour
         m_Driver = NetworkDriver.Create();
         m_Connections = new NativeList<NetworkConnection>(16, Allocator.Persistent);
 
-        var endpoint = NetworkEndpoint.AnyIpv4.WithPort(7777);
+        var endpoint = NetworkEndpoint.AnyIpv4.WithPort(7779);
         if (m_Driver.Bind(endpoint) != 0)
         {
-            Debug.LogError("Failed to bind to port 7777.");
+            Debug.LogError("Failed to bind to port 7779.");
             return;
         }
 
         m_Driver.Listen();
-        Debug.Log("Server started on port 7777");
+        Debug.Log("Server started on port 7779");
     }
 
     void OnDestroy()
@@ -68,7 +68,6 @@ public class ServerBehaviour : MonoBehaviour
                     var message = stream.ReadFixedString128();
                     Debug.Log($"Server received: {message}");
 
-                    // Renvoyer le message à TOUS les clients (broadcast)
                     BroadcastMessage(message);
                 }
                 else if (cmd == NetworkEvent.Type.Disconnect)
