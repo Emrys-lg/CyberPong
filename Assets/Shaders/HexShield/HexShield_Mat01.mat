@@ -71,12 +71,12 @@ Material:
     - _VertexFrequency: 1
     m_Colors:
     - _BackColor: {r: 2, g: 0.05643472, b: 0, a: 1}
-    - _BackColorDefault: {r: 0.25, g: 0.0044403933, b: 0, a: 1}
-    - _BackColorPowered: {r: 0, g: 0, b: 0, a: 1}
+    - _BackColorDefault: {r: 1, g: 0.017761573, b: 0, a: 1}
+    - _BackColorPowered: {r: 2.0187242, g: 0, b: 3.9999995, a: 1}
     - _FresnelColor: {r: 0.65208435, g: 0, b: 2, a: 1}
     - _FrontColor: {r: 0, g: 1.0375016, b: 5.3403134, a: 1}
-    - _FrontColorDefault: {r: 0, g: 0.74871826, b: 1, a: 1}
-    - _FrontColorPowered: {r: 2.981132, g: 0, b: 0, a: 1}
+    - _FrontColorDefault: {r: 0, g: 2.994873, b: 4, a: 1}
+    - _FrontColorPowered: {r: 5.962264, g: 0, b: 0, a: 1}
     - _VertexAmount: {r: 0.2, g: 0.2, b: 0.2, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

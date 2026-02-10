@@ -17,6 +17,7 @@ public class BPowered : BallState
 
         _timeOnEnter = Time.time;
         BallMain.Instance.IsPowered = true;
+        BallMain.Instance.BallVisual._colorTransition.Value = 1f;
     }
 
     public override void Do()

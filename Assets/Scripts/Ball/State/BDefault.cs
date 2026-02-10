@@ -13,6 +13,7 @@ public class BDefault : BallState
         BallMain.Instance.IsPowered = false;
 
         BallMain.Instance.BallVisual.SetBallFresnelColorClientRpc(Color.white);
+        BallMain.Instance.BallVisual._colorTransition.Value = 0f;
     }
 
 
