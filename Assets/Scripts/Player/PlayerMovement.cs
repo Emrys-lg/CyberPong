@@ -4,27 +4,20 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : NetworkBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] private float _speed = 5f;
+    private Vector2 _moveInput;
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        if (!IsOwner || !IsSpawned) return;
+        _moveInput = context.ReadValue<Vector2>();
+    }
+
     void Update()
     {
         if (!IsOwner || !IsSpawned) return;
-        var multiplier = speed * Time.deltaTime;
-
-        if (Keyboard.current.aKey.isPressed)
-        {
-            transform.position += new Vector3(-multiplier, 0, 0);
-        }
-        else if (Keyboard.current.dKey.isPressed)
-        {
-            transform.position += new Vector3(multiplier, 0, 0);
-        }
-        else if (Keyboard.current.wKey.isPressed)
-        {
-            transform.position += new Vector3(0, 0, multiplier);
-        }
-        else if (Keyboard.current.sKey.isPressed)
-        {
-            transform.position += new Vector3(0, 0, -multiplier);
-        }
+        float multiplier = _speed * Time.deltaTime;
+        Vector3 movement = new Vector3(_moveInput.x * multiplier, 0, _moveInput.y * multiplier);
+        transform.position += movement;
     }
 }

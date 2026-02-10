@@ -26,7 +26,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (IsServer)
         {
-            currentHealth.Value = 100;
+            currentHealth.Value = 3;
         }
     }
 

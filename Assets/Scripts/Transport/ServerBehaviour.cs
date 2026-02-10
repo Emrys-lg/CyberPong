@@ -68,7 +68,6 @@ public class ServerBehaviour : MonoBehaviour
                     var message = stream.ReadFixedString128();
                     Debug.Log($"Server received: {message}");
 
-                    // Renvoyer le message à TOUS les clients (broadcast)
                     BroadcastMessage(message);
                 }
                 else if (cmd == NetworkEvent.Type.Disconnect)

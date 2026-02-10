@@ -3,12 +3,16 @@ using UnityEngine;
 
 public class BallCollision : NetworkBehaviour
 {
-    void OnCollisionEnter(Collision collision)
+    public override void OnNetworkSpawn()
     {
-        if (!IsServer) return; 
+        BallMain.Instance.Rb.isKinematic = false;
     }
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    Debug.Log("Exit");
-    //}
+
+    private void FixedUpdate()
+    {
+        if (BallMain.Instance.Rb.isKinematic)
+        {
+            BallMain.Instance.Rb.isKinematic = false;
+        }
+    }
 }
