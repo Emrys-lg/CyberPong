@@ -40,7 +40,6 @@ public class NetworkSession : NetworkBehaviour
     [ClientRpc]
     private void AssignPlayerUIClientRpc(ulong playerNetworkObjectId, int playerNumber)
     {
-        // Trouver le NetworkObject du joueur
         if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(playerNetworkObjectId, out NetworkObject networkObject))
         {
             PlayerUI playerUI = networkObject.GetComponent<PlayerUI>();

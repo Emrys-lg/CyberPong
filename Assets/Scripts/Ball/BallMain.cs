@@ -34,5 +34,10 @@ public class BallMain : NetworkBehaviour
         }
     }
 
+    public override void OnNetworkSpawn()
+    {
+        Rb.isKinematic = false;
+    }
+
 
 }

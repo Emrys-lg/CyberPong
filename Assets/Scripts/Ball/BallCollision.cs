@@ -1,18 +1,34 @@
 using Unity.Netcode;
 using UnityEngine;
+using System.Collections;
 
 public class BallCollision : NetworkBehaviour
 {
-    public override void OnNetworkSpawn()
-    {
-        BallMain.Instance.Rb.isKinematic = false;
-    }
+    [Header("Bounce Variation")]
+    [SerializeField] private float randomBounceAngle = 5f;
 
-    private void FixedUpdate()
+    void OnCollisionEnter(Collision collision)
     {
-        if (BallMain.Instance.Rb.isKinematic)
+        if (!IsServer) return;
+
+        if (collision.gameObject.CompareTag("Wall"))
         {
-            BallMain.Instance.Rb.isKinematic = false;
+            StartCoroutine(TweakBounceDirection());
         }
     }
+
+    IEnumerator TweakBounceDirection()
+    {
+        yield return new WaitForFixedUpdate();
+
+        Rigidbody rb = BallMain.Instance.Rb;
+        Vector3 velocity = rb.linearVelocity;
+        float speed = velocity.magnitude;
+
+        float randomAngle = Random.Range(-randomBounceAngle, randomBounceAngle);
+        Vector3 newDirection = Quaternion.Euler(0, randomAngle, 0) * velocity.normalized;
+
+        rb.linearVelocity = newDirection * speed;
+    }
+
 }
