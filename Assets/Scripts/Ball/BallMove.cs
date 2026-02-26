@@ -1,21 +1,28 @@
 using UnityEngine;
 using Unity.Netcode;
+using System.Collections.Generic;
 
 public class BallMove : NetworkBehaviour
 {
     public float MaxMoveSpeed = 15f;
-    public float Lerp = 0.4f;
+    public float InterpolationBackTime = 0.1f;
 
     private NetworkVariable<Vector3> netPos =
         new(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
-    private Vector3 targetPos;
+    private List<Snapshot> snapshots = new();
+
+    struct Snapshot
+    {
+        public Vector3 Position;
+        public float Time;
+    }
 
     public override void OnNetworkSpawn()
     {
         if (!IsServer)
         {
-            netPos.OnValueChanged += OnNetPositionChanged;
+            netPos.OnValueChanged += (_, newPos) => AddSnapshot(newPos);
         }
     }
 
@@ -34,13 +41,27 @@ public class BallMove : NetworkBehaviour
         }
         else
         {
-            rb.MovePosition(Vector3.Lerp(rb.position, targetPos, 0.4f));
+            float renderTime = Time.time - InterpolationBackTime;
+
+            if (snapshots.Count < 2) return;
+
+            while (snapshots.Count >= 2 && snapshots[1].Time <= renderTime)
+                snapshots.RemoveAt(0);
+
+            var s0 = snapshots[0];
+            var s1 = snapshots[1];
+
+            float t = Mathf.InverseLerp(s0.Time, s1.Time, renderTime);
+            Vector3 pos = Vector3.Lerp(s0.Position, s1.Position, t);
+
+            rb.MovePosition(pos);
         }
     }
 
-    void OnNetPositionChanged(Vector3 oldValue, Vector3 newValue)
+    void AddSnapshot(Vector3 pos)
     {
-        targetPos = newValue;
+        snapshots.Add(new Snapshot { Position = pos, Time = Time.time });
+        if (snapshots.Count > 20) snapshots.RemoveAt(0);
     }
 
     public void Swing(Vector3 dir, float force)

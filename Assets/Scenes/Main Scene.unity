@@ -3241,21 +3241,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2132207151166110474, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
-      propertyPath: MaxMoveSpeed
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 3316883668508914482, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3316883668508914482, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3316883668508914482, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: -1955625413683718550, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3316883668508914482, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3300,10 +3288,6 @@ PrefabInstance:
     - target: {fileID: 3973714397448583782, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4369277034886332419, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
-      propertyPath: randomBounceAngle
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4527112354832268946, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -3386,7 +3370,7 @@ MonoBehaviour:
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: da92a86ccdaea6746a72d1245ae11037, type: 2}
-    TickRate: 60
+    TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
     ConnectionData: 

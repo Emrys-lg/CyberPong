@@ -16,17 +16,12 @@ public class BallCollision : NetworkBehaviour
         Vector3 normal = collision.contacts[0].normal;
 
         Vector3 reflectedDir = Vector3.Reflect(incoming.normalized, normal);
-
         float angle = Random.Range(-randomBounceAngle, randomBounceAngle);
         reflectedDir = Quaternion.AngleAxis(angle, Vector3.up) * reflectedDir;
 
         if (BallMain.Instance.IsPowered)
-        {
             rb.linearVelocity = reflectedDir * BallMain.Instance.BallMove.MaxMoveSpeed;
-        }
-        else 
-        {
+        else
             rb.linearVelocity = reflectedDir * incoming.magnitude;
-        }
     }
 }
