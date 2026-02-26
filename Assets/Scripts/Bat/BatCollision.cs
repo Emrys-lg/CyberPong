@@ -30,6 +30,6 @@ public class BatCollision : NetworkBehaviour
         BallMain.Instance.BallStateBrain.SwitchBallState(
             BallMain.Instance.BallStateBrain._ballPoweredState
         );
-        BallMain.Instance.BallMove.Swinged(direction, batForce);
+        BallMain.Instance.BallMove.Swing(direction, batForce);
     }
 }

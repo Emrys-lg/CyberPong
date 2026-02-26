@@ -1,32 +1,74 @@
 using UnityEngine;
 using Unity.Netcode;
+using System.Collections.Generic;
 
 public class BallMove : NetworkBehaviour
 {
-    private float _currentMagnitude;
-    public float MaxMoveSpeed = 15;
+    public float MaxMoveSpeed = 15f;
+    public float InterpolationBackTime = 0.1f;
 
-    public float AverageCurrentVelocity;
-    [SerializeField] float _swingForce = 0;
+    private NetworkVariable<Vector3> netPos =
+        new(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
-    public void Swinged(Vector3 direction, float force)
+    private List<Snapshot> snapshots = new();
+
+    struct Snapshot
     {
-        _currentMagnitude = force;
-        _swingForce = force;
-        BallMain.Instance.Rb.linearVelocity = direction * _swingForce;
-        _currentMagnitude = BallMain.Instance.Rb.linearVelocity.magnitude;
+        public Vector3 Position;
+        public float Time;
     }
 
-    void Update()
+    public override void OnNetworkSpawn()
     {
-        if(BallMain.Instance.IsPowered && BallMain.Instance.Rb.linearVelocity.magnitude < _currentMagnitude)
+        if (!IsServer)
         {
-            BallMain.Instance.Rb.linearVelocity = BallMain.Instance.Rb.linearVelocity.normalized * _currentMagnitude;
+            netPos.OnValueChanged += (_, newPos) => AddSnapshot(newPos);
         }
-        if(BallMain.Instance.Rb.linearVelocity.magnitude > MaxMoveSpeed)
+    }
+
+    void FixedUpdate()
+    {
+        if (!IsSpawned) return;
+
+        var rb = BallMain.Instance.Rb;
+
+        if (IsServer)
         {
-            BallMain.Instance.Rb.linearVelocity = BallMain.Instance.Rb.linearVelocity.normalized * MaxMoveSpeed;
+            if (rb.linearVelocity.magnitude > MaxMoveSpeed && BallMain.Instance.IsPowered)
+                rb.linearVelocity = rb.linearVelocity.normalized * MaxMoveSpeed;
+
+            netPos.Value = rb.position;
         }
-        AverageCurrentVelocity = Mathf.Abs((BallMain.Instance.Rb.linearVelocity.x + BallMain.Instance.Rb.linearVelocity.y + BallMain.Instance.Rb.linearVelocity.z)/3);
+        else
+        {
+            float renderTime = Time.time - InterpolationBackTime;
+
+            if (snapshots.Count < 2) return;
+
+            while (snapshots.Count >= 2 && snapshots[1].Time <= renderTime)
+                snapshots.RemoveAt(0);
+
+            var s0 = snapshots[0];
+            var s1 = snapshots[1];
+
+            float t = Mathf.InverseLerp(s0.Time, s1.Time, renderTime);
+            Vector3 pos = Vector3.Lerp(s0.Position, s1.Position, t);
+
+            rb.MovePosition(pos);
+        }
+    }
+
+    void AddSnapshot(Vector3 pos)
+    {
+        snapshots.Add(new Snapshot { Position = pos, Time = Time.time });
+        if (snapshots.Count > 20) snapshots.RemoveAt(0);
+    }
+
+    public void Swing(Vector3 dir, float force)
+    {
+        if (!IsServer) return;
+
+        var rb = BallMain.Instance.Rb;
+        rb.linearVelocity = dir.normalized * force;
     }
 }
