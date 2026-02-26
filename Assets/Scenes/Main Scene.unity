@@ -3297,9 +3297,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3973714397448583782, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4369277034886332419, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
       propertyPath: randomBounceAngle
-      value: 25
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4527112354832268946, guid: 7feeb1c18f94fa843b1552c83a86af56, type: 3}
       propertyPath: GlobalObjectIdHash

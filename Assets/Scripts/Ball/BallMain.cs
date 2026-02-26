@@ -19,10 +19,6 @@ public class BallMain : NetworkBehaviour
 
     public void Start()
     {
-        if (!IsServer)
-        {
-            Rb.isKinematic = true;
-        }
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
@@ -36,8 +32,16 @@ public class BallMain : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        Rb.isKinematic = false;
+        if (IsServer)
+        {
+            Rb.isKinematic = false;
+            Rb.detectCollisions = true;
+            Rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
+        else
+        {
+            Rb.isKinematic = true;
+            Rb.detectCollisions = false;
+        }
     }
-
-
 }

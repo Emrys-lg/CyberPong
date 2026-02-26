@@ -7,7 +7,7 @@ public class BatCollision : NetworkBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!IsSpawned) return;
+        if (!IsSpawned || !IsServer) return;
 
         if (other.CompareTag("Ball"))
         {
@@ -30,6 +30,6 @@ public class BatCollision : NetworkBehaviour
         BallMain.Instance.BallStateBrain.SwitchBallState(
             BallMain.Instance.BallStateBrain._ballPoweredState
         );
-        BallMain.Instance.BallMove.Swinged(direction, batForce);
+        BallMain.Instance.BallMove.Swing(direction, batForce);
     }
 }
