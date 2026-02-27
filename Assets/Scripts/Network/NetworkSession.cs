@@ -33,7 +33,7 @@ public class NetworkSession : NetworkBehaviour
         _currentPlayerCount++;
         _playerUIs.Add(playerUI);
         //StartCoroutine(DelayedAssignPlayerUI(playerUI.NetworkObjectId, _currentPlayerCount));
-
+        tempUI.SetActive(false);
         Debug.Log($"Player {_currentPlayerCount} registered");
     }
     private IEnumerator DelayedAssignPlayerUI(ulong playerNetworkObjectId, int playerNumber)
