@@ -7,9 +7,12 @@ public class BallMove : NetworkBehaviour
     public float MaxMoveSpeed = 15f;
     public float InterpolationBackTime = 0.1f;
 
+    
+    // sync ball position accros all clients
     private NetworkVariable<Vector3> netPos =
         new(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
+    // buffer to stock position history
     private List<Snapshot> snapshots = new();
 
     struct Snapshot
@@ -34,24 +37,31 @@ public class BallMove : NetworkBehaviour
 
         if (IsServer)
         {
+            // limit ball speed to max when powered
             if (rb.linearVelocity.magnitude > MaxMoveSpeed && BallMain.Instance.IsPowered)
                 rb.linearVelocity = rb.linearVelocity.normalized * MaxMoveSpeed;
 
+            // broadcast pos to all clients
             netPos.Value = rb.position;
         }
         else
         {
             float renderTime = Time.time - InterpolationBackTime;
 
+            // need minimum two snapshot to interpolate
             if (snapshots.Count < 2) return;
 
             while (snapshots.Count >= 2 && snapshots[1].Time <= renderTime)
                 snapshots.RemoveAt(0);
 
+            // get the two snapshots
             var s0 = snapshots[0];
             var s1 = snapshots[1];
 
+            // how far between s0 and s1
             float t = Mathf.InverseLerp(s0.Time, s1.Time, renderTime);
+
+            //blend between the two pos
             Vector3 pos = Vector3.Lerp(s0.Position, s1.Position, t);
 
             rb.MovePosition(pos);

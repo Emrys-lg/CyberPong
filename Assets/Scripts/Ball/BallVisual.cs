@@ -21,12 +21,6 @@ public class BallVisuals : NetworkBehaviour
     private void Update()
     {
         if (!IsServer) return;
-
-        //float velocityRatio = BallMain.Instance.BallMove.AverageCurrentVelocity / BallMain.Instance.BallMove.MaxMoveSpeed;
-
-        //_colorTransition.Value = velocityRatio;
-        //_vertexAmount.Value = BallMain.Instance.BallMove.AverageCurrentVelocity / 20f;
-        //_vertexFrequency.Value = BallMain.Instance.BallMove.AverageCurrentVelocity / 5f;
     }
 
     public void OnColorTransitionChanged(float oldValue, float newValue)
