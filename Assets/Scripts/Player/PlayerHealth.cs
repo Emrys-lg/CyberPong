@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlayerHealth : NetworkBehaviour
 {
-    public NetworkVariable<int> currentHealth = new NetworkVariable<int>(100);
+    public int MaxHealth = 99;
+    public NetworkVariable<int> currentHealth = new NetworkVariable<int>();
     public PlayerMain PlayerMain;
 
     public override void OnNetworkSpawn()
@@ -26,7 +27,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (IsServer)
         {
-            currentHealth.Value = 3;
+            currentHealth.Value = MaxHealth;
         }
     }
 

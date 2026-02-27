@@ -14,7 +14,6 @@ public class BallMain : NetworkBehaviour
     private static BallMain instance = null;
     public static BallMain Instance => instance;
 
-
     public bool IsPowered = false;
 
     public void Start()
@@ -44,6 +43,4 @@ public class BallMain : NetworkBehaviour
             Rb.detectCollisions = false;
         }
     }
-
-
 }

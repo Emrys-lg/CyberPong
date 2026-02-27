@@ -20,7 +20,6 @@ public class PlayerMain : NetworkBehaviour
             NetworkSession.Instance.RegisterPlayer(PlayerUI);
         }
 
-        PlayerHealth.SetupHealth();
     }
 
     public override void OnNetworkDespawn()
