@@ -10,6 +10,7 @@ public class NetworkSession : NetworkBehaviour
 
     private int _currentPlayerCount = 0;
     private List<PlayerUI> _playerUIs = new List<PlayerUI>();
+    [SerializeField] private GameObject tempUI;
 
     [Header("UI Health Texts")]
     public TextMeshProUGUI _player01UIHealth;
@@ -31,7 +32,7 @@ public class NetworkSession : NetworkBehaviour
     {
         _currentPlayerCount++;
         _playerUIs.Add(playerUI);
-        StartCoroutine(DelayedAssignPlayerUI(playerUI.NetworkObjectId, _currentPlayerCount));
+        //StartCoroutine(DelayedAssignPlayerUI(playerUI.NetworkObjectId, _currentPlayerCount));
 
         Debug.Log($"Player {_currentPlayerCount} registered");
     }
@@ -41,7 +42,7 @@ public class NetworkSession : NetworkBehaviour
         AssignPlayerUIClientRpc(playerNetworkObjectId, playerNumber);
     }
 
-
+    //TO REWORK
     [ClientRpc]
     private void AssignPlayerUIClientRpc(ulong playerNetworkObjectId, int playerNumber)
     {
@@ -54,12 +55,10 @@ public class NetworkSession : NetworkBehaviour
                 if (playerNumber == 1)
                 {
                     playerUI.health = _player01UIHealth;
-                    Debug.Log($"Player 1 UI assigned to {_player01UIHealth.name}");
                 }
                 else if (playerNumber == 2)
                 {
                     playerUI.health = _player02UIHealth;
-                    Debug.Log($"Player 2 UI assigned to {_player02UIHealth.name}");
                 }
 
                 PlayerMain playerMain = networkObject.GetComponent<PlayerMain>();
@@ -70,14 +69,6 @@ public class NetworkSession : NetworkBehaviour
                     playerUI.health.text = currentHP.ToString();
                 }
             }
-            else
-            {
-                Debug.LogError($"PlayerUI component not found on NetworkObject {playerNetworkObjectId}");
-            }
-        }
-        else
-        {
-            Debug.LogError($"NetworkObject with ID {playerNetworkObjectId} not found in SpawnedObjects");
         }
     }
 
